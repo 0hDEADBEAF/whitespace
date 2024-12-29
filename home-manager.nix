@@ -1,5 +1,6 @@
-{ inputs, yazi, hyprpaper, home-manager, config, sops-nix, ... }:
+{ inputs, yazi, hyprpaper, home-manager, config, sops-nix, configModules, ... }:
 {
+  imports = configModules;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -7,7 +8,7 @@
     sharedModules = [
       sops-nix.homeManagerModules.sops
     ];
-    extraSpecialArgs = { inherit inputs yazi hyprpaper sops-nix; };
+    extraSpecialArgs = { inherit inputs yazi sops-nix hyprpaper configModules; };
   };
   users.users.${config.username} = {
     isNormalUser = true;

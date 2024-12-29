@@ -26,11 +26,15 @@
         hostname:
         nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit self inputs sops-nix hyprpaper yazi; };
+          specialArgs = { 
+            inherit self inputs sops-nix hyprpaper yazi;
+            configModules = [
+              ./options.nix
+              ./configurations
+              ./configurations/${hostname}
+            ];
+          };
           modules = [
-            ./options.nix
-            ./configurations/default.nix
-            ./configurations/${hostname}
             ./configuration.nix
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager

@@ -1,15 +1,13 @@
-{ config, lib, pkgs, inputs, yazi, hyprpaper, ... }:
+{ lib, pkgs, config, inputs, yazi, hyprpaper, configModules, ... }:
 {
   imports = [
-    ./options.nix
-
     ./modules/hyprland
     ./modules/waybar
     ./modules/rofi
     ./modules/swaync
     ./modules/sops
     ./modules/git
-  ];
+  ] ++ configModules;
 
   home.username = config.username;
   home.homeDirectory = config.homeDirectory;

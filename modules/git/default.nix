@@ -15,7 +15,7 @@
     maintenance.enable = true;
     signing = {
       gpgPath = "gpg";
-      key = "C2671CD8BA3B9B3C";
+      key = config.git.signingKey;
       signByDefault = true;
     };
     userEmail = config.git.email;
@@ -23,6 +23,7 @@
     extraConfig = {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
+      credential.helper = "store";
     };
   };
 }

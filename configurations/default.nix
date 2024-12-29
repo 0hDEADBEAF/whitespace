@@ -1,6 +1,6 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
-  defaultValues = {
+  config = {
     username = "deadbeaf";
     homeDirectory = "/home/${config.username}";
     git = {
