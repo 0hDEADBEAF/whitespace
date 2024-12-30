@@ -7,6 +7,7 @@
     ./modules/swaync
     ./modules/sops
     ./modules/git
+    ./modules/kitty
   ] ++ configModules;
 
   home.username = config.username;
@@ -46,7 +47,6 @@
     gnupg
 
     # Hyprland prerequisites
-    alacritty
     networkmanagerapplet
     waybar
     polkit
@@ -87,7 +87,6 @@
     };
   };
 
-  home.file."${config.homeDirectory}/.config/alacritty/alacritty.toml".source = lib.mkForce ./modules/alacritty/alacritty.toml;
   home.file."${config.homeDirectory}/images/lock.jpg".source = lib.mkForce ./images/lock.jpg;
   home.file."${config.homeDirectory}/images/wallpaper.png".source = lib.mkForce ./images/wallpaper.png;
   home.file."${config.homeDirectory}/.config/scripts/memory_usage.sh".source = lib.mkForce ./scripts/memory_usage.sh;

@@ -1,5 +1,5 @@
 { ... }:
-let terminal = "alacritty";
+let terminal = "kitty";
     fileManager = "yazi";
     browser = "firefox-devedition";
 in
@@ -113,7 +113,7 @@ in
       # Apps
       "$mod, Return, exec, ${terminal}"
       "$mod, o, exec, zathura"
-      "$mod, e, exec, alacritty -e ${fileManager}"
+      "$mod, e, exec, ${terminal} -e ${fileManager}"
       "$mod, u, exec, swaync-client -t"
       "$mod, b, exec, blueman-manager"
       "$mod, f, exec, ${browser}"
