@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   programs.waybar = {
     enable = true;
@@ -99,7 +99,7 @@
       temperature = {
         tooltip = false;
         thermal-zone = 2;
-        hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
+        hwmon-path = config.hardware.temperatureInputPath;
         critical_threshold = 70;
         format = "<span color='#202020' bgcolor='#d8a657' >  </span> {temperatureC}°C";
         format-critical = "<span color='#202020' bgcolor='#cc241d' >  </span> {temperatureC}°C";

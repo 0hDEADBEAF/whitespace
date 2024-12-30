@@ -1,7 +1,9 @@
-{ ... }:
+{ config, lib, ... }:
 let terminal = "kitty";
     fileManager = "yazi";
     browser = "firefox-devedition";
+    matches = lib.filter (monitor: monitor.primaryDisplay) config.hardware.monitors;
+    primaryDisplay = lib.head matches;
 in
 {
   wayland.windowManager.hyprland.settings = {
@@ -42,14 +44,14 @@ in
 
     # Workspaces
     workspace = [
-      "1, monitor:eDP-1"
-      "2, monitor:eDP-1"
-      "3, monitor:eDP-1"
-      "4, monitor:eDP-1"
-      "5, monitor:eDP-1"
-      "6, monitor:eDP-1"
-      "7, monitor:eDP-1"
-      "8, monitor:eDP-1"
+      "1, monitor:${primaryDisplay.name}"
+      "2, monitor:${primaryDisplay.name}"
+      "3, monitor:${primaryDisplay.name}"
+      "4, monitor:${primaryDisplay.name}"
+      "5, monitor:${primaryDisplay.name}"
+      "6, monitor:${primaryDisplay.name}"
+      "7, monitor:${primaryDisplay.name}"
+      "8, monitor:${primaryDisplay.name}"
     ];
 
     # Decoration
@@ -93,7 +95,7 @@ in
     };
 
     # Monitors
-    monitor = "eDP-1, preferred, auto, 1";
+    monitor = lib.map (monitor: "${monitor.name}, ${monitor.resolution}, ${monitor.position}, ${toString monitor.scale}") config.hardware.monitors;
 
     # Autostart
     exec-once = [
