@@ -53,17 +53,31 @@ in
       email = mkOption {
         type = types.str;
         description = "Your Git email";
-        default = "";
       };
       username = mkOption {
         type = types.str;
         description = "Your Git username";
-        default = "";
       };
       signingKey = mkOption {
         type = types.str;
         description = "Your signing key for commit authentification";
-        default = "";
+      };
+    };
+
+    localization = {
+      timeZone = mkOption {
+        type = types.str;
+        description = "Time zone for clock";
+      };
+      defaultLocale = mkOption {
+        type = types.str;
+        description = "The default locale";
+        default = "en_US";
+      };
+      extraLocale = mkOption {
+        type = types.str;
+        description = "Extra locale set for LC_ADDRESS, LC_IDENTIFICATION, LC_MEASUREMENT, LC_MONETARY, LC_NAME, LC_NUMERIC, LC_PAPER, LC_TELEPHONE and LC_TIME";
+        default = "en_US";
       };
     };
 
@@ -98,6 +112,11 @@ in
         type = types.str;
         description = "Path to 'temp1_input' file corresponding for the temperature for your computer";
         default = "/sys/class/hwmon/hwmon1/temp1_input";
+      };
+      keyboardLayout = mkOption {
+        type = types.str;
+        description = "Keyboard layout";
+        default = "en";
       };
     };
   };

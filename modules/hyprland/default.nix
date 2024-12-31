@@ -216,7 +216,7 @@ in
 
     # Input
     input = {
-      kb_layout = "fr";
+      kb_layout = config.hardware.keyboardLayout;
       follow_mouse = 2;
       sensitivity = 0;
       touchpad = {
@@ -235,7 +235,7 @@ in
     windowrulev2 = [
       "float, class:(Diplay), title:^(pass:)(.*)$"
       "center, floating:1, class:(Display), title:^(pass:)(.*)$"
-      "workspace 1, class:^(Alacritty)$"
+      "workspace 1, class:^(${terminal})$"
       "workspace 2, class:^(${browser})$"
       "workspace 4, class:^(mpv)$"
       "workspace 5, class:^(discord)$"

@@ -1,18 +1,13 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, inputs, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       ./modules/sops
     ];
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Bootloader
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -50,39 +45,53 @@
     };
     hostName = config.hostname;
   };
-  programs.nm-applet.enable = true;
   
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  programs = {
+    nm-applet.enable = true;
+    gnupg.agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-curses;
+      enableSSHSupport = true;
+    };
+  };
+  
+  time.timeZone = config.localization.timeZone;
 
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
-
-  # Select internationalisation properties.
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "${config.localization.defaultLocale}.UTF-8";
     extraLocaleSettings = {
-      LC_ADDRESS = "fr_FR.UTF-8";
-      LC_IDENTIFICATION = "fr_FR.UTF-8";
-      LC_MEASUREMENT = "fr_FR.UTF-8";
-      LC_MONETARY = "fr_FR.UTF-8";
-      LC_NAME = "fr_FR.UTF-8";
-      LC_NUMERIC = "fr_FR.UTF-8";
-      LC_PAPER = "fr_FR.UTF-8";
-      LC_TELEPHONE = "fr_FR.UTF-8";
-      LC_TIME = "fr_FR.UTF-8";
+      LC_ADDRESS = "${config.localization.extraLocale}.UTF-8";
+      LC_IDENTIFICATION = "${config.localization.extraLocale}.UTF-8";
+      LC_MEASUREMENT = "${config.localization.extraLocale}.UTF-8";
+      LC_MONETARY = "${config.localization.extraLocale}.UTF-8";
+      LC_NAME = "${config.localization.extraLocale}.UTF-8";
+      LC_NUMERIC = "${config.localization.extraLocale}.UTF-8";
+      LC_PAPER = "${config.localization.extraLocale}.UTF-8";
+      LC_TELEPHONE = "${config.localization.extraLocale}.UTF-8";
+      LC_TIME = "${config.localization.extraLocale}.UTF-8";
     };
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "fr";
-    variant = "";
+  services = {
+    xserver = {
+      xkb = {
+        layout = config.hardware.keyboardLayout;
+        variant = "";
+      };
+      videoDrivers = config.videoDrivers;
+    };
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+    };
+    pcscd.enable = true;
   };
 
-  # Configure console keymap
-  console.keyMap = "fr";
+  console.keyMap = config.hardware.keyboardLayout;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -95,55 +104,16 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [ ];
 
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
 
   hardware = {
     bluetooth.enable = true;
     graphics.enable = true;
   };
 
-  services.xserver.videoDrivers = config.videoDrivers;
-  
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryPackage = pkgs.pinentry-curses;
-    enableSSHSupport = true;
-  };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
-
+  system.stateVersion = "25.05";
 }
