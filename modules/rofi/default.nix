@@ -36,7 +36,7 @@ in
         border-color = mkLiteral "@cream";
         background-color = mkLiteral "@transparent";
 
-        font = "Roboto Condensed Bold 11";
+        font = "JetBrainsMono Nerd Font ExtraBold 11";
       };
       configuration = {
         display-drun = " Apps ";
@@ -62,7 +62,7 @@ in
         margin = mkLiteral "2px";
         background-color = mkLiteral "@dark-grey";
         text-color = mkLiteral "@aqua";
-        font = "Roboto Condensed Bold 13";
+        font = "JetBrainsMono Nerd Font ExtraBold 13";
       };
       entry = {
         padding = mkLiteral "5px";
@@ -70,7 +70,7 @@ in
         border-color = mkLiteral "@grey";
         background-color = mkLiteral "@dark-grey";
         text-color = mkLiteral "@red";
-        font = "Roboto Condensed Bold 13";
+        font = "JetBrainsMono Nerd Font ExtraBold 13";
       };
       listview = {
         lines = 10;

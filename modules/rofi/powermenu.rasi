@@ -27,7 +27,7 @@
 
     text-color: @dark;
 
-    font:"Roboto Condensed Bold 13";
+    font:"JetBrainsMono Nerd Font SemiBold 15";
 }
 
 window {

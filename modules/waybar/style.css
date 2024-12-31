@@ -2,7 +2,6 @@
 /*            Common CSS            */
 /* ================================ */
 * {
-  /* `otf-font-awesome` is required to be installed for icons */
   padding: 0;
   margin: 0;
   min-height: 0;
@@ -13,7 +12,6 @@
   box-shadow: none;
 }
 
-/* the whole window */
 window#waybar {
   color: #fff4d2;
   background: none;

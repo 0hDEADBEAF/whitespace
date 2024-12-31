@@ -95,6 +95,9 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-emoji
+    noto-fonts-cjk-sans
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
