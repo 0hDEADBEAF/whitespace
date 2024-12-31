@@ -98,9 +98,8 @@ in
     monitor = lib.map (monitor: "${monitor.name}, ${monitor.resolution}, ${monitor.position}, ${toString monitor.scale}") config.hardware.monitors;
 
     # Autostart
-    exec-once = [
-      "nm-applet &"
-    ];
+    exec-once = [];
+
    # Environment variables
     env = [
       "XCURSOR_SIZE, 24"

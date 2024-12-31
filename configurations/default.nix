@@ -7,5 +7,9 @@
       email = "0xdeadbeaf@tutamail.com";
       username = "0hDEADBEAF";
     };
+    networks = [
+      "tmp_royan"
+      "my_phone_share"
+    ];
   };
 }

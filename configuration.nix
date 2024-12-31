@@ -7,41 +7,72 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/sops
     ];
-
+  
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Bootloader
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
-  networking.hostName = config.hostname; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
+ networking = {
+    networkmanager = {
+      enable = true;
+      ensureProfiles = {
+        environmentFiles = [
+          "${config.sops.secrets."wireless.conf".path}"
+        ];
+        profiles = builtins.listToAttrs (map (network_name: {
+          name = network_name;
+          value = {
+            connection = {
+              id = network_name;
+              type = "wifi";
+              interface-name = "wlp2s0";
+            };
+            wifi = {
+              ssid = "$" + "${network_name}_ssid";
+            };
+            wifi-security = {
+              auth-alg = "open";
+              key-mgmt = "$" + "${network_name}_key_mgmt";
+              psk = "$" + "${network_name}_password";
+            };
+          };  
+        }) config.networks);
+      };
+    };
+    hostName = config.hostname;
+  };
+  programs.nm-applet.enable = true;
+  
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
-    LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "fr_FR.UTF-8";
+      LC_IDENTIFICATION = "fr_FR.UTF-8";
+      LC_MEASUREMENT = "fr_FR.UTF-8";
+      LC_MONETARY = "fr_FR.UTF-8";
+      LC_NAME = "fr_FR.UTF-8";
+      LC_NUMERIC = "fr_FR.UTF-8";
+      LC_PAPER = "fr_FR.UTF-8";
+      LC_TELEPHONE = "fr_FR.UTF-8";
+      LC_TIME = "fr_FR.UTF-8";
+    };
   };
 
   # Configure keymap in X11
@@ -79,8 +110,11 @@
     pulse.enable = true;
   };
 
-  hardware.bluetooth.enable = true;
-  hardware.graphics.enable = true;
+  hardware = {
+    bluetooth.enable = true;
+    graphics.enable = true;
+  };
+
   services.xserver.videoDrivers = config.videoDrivers;
   
   # Some programs need SUID wrappers, can be configured further or are

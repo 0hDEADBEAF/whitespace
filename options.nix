@@ -32,54 +32,60 @@
 in
 {
   options = {
-    username = lib.mkOption {
-      type = lib.types.str;
+    username = mkOption {
+      type = types.str;
       description = "Your username";
       default = "cat";
     };
-    hostname = lib.mkOption {
-      type = lib.types.str;
+    hostname = mkOption {
+      type = types.str;
       description = "Your hostname";
       default = "catland";
     };
-    homeDirectory = lib.mkOption {
-      type = lib.types.str;
+    homeDirectory = mkOption {
+      type = types.str;
       description = "Your home directory path";
       default = "/home/${config.username}";
     };
     
     # Git options
     git = {
-      email = lib.mkOption {
-        type = lib.types.str;
+      email = mkOption {
+        type = types.str;
         description = "Your Git email";
         default = "";
       };
-      username = lib.mkOption {
-        type = lib.types.str;
+      username = mkOption {
+        type = types.str;
         description = "Your Git username";
         default = "";
       };
-      signingKey = lib.mkOption {
-        type = lib.types.str;
+      signingKey = mkOption {
+        type = types.str;
         description = "Your signing key for commit authentification";
         default = "";
       };
     };
 
-    videoDrivers = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
+    videoDrivers = mkOption {
+      type = types.listOf types.str;
       description = "List of video drivers to install.";
+      default = [];
+    };
+
+    networks = mkOption {
+      type = types.listOf types.str;
+      description = "List of the different networks configured in the secret 'wireless.conf'";
       default = [];
     };
     
     hardware = {
-      monitors = lib.mkOption {
-        type = lib.types.listOf MonitorConfiguration;
+      monitors = mkOption {
+        type = types.listOf MonitorConfiguration;
         description = "Description of your monitors configuration";
         default = [];
         apply = value:
-          let primaryDisplays = lib.filter (monitor: monitor.primaryDisplay) value;
+          let primaryDisplays = filter (monitor: monitor.primaryDisplay) value;
           in
           if builtins.length value == 0 then
             throw "You must configure at least one monitor."
@@ -88,8 +94,8 @@ in
           else
            value;
       };
-      temperatureInputPath = lib.mkOption {
-        type = lib.types.str;
+      temperatureInputPath = mkOption {
+        type = types.str;
         description = "Path to 'temp1_input' file corresponding for the temperature for your computer";
         default = "/sys/class/hwmon/hwmon1/temp1_input";
       };

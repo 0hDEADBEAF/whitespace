@@ -1,6 +1,5 @@
 keys:
-  - users:
-    - &deadbeaf age1w20jqg3cap5acj73en9zls5el0j046latqswf753djytvdwvqs6sjhhad3
+  - &deadbeaf age19dde247qjf908er5wvynv3cd0xxjeh4f3yp9uzextppezh2szpvs5ej2h0
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
