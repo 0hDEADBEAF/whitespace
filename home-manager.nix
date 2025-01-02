@@ -11,6 +11,7 @@
     ];
     extraSpecialArgs = { inherit inputs yazi sops-nix hyprpaper configModules; };
   };
+  sops.secrets.hashed_user_password.neededForUsers = true;
   users.users.${config.username} = {
     isNormalUser = true;
     extraGroups = [
@@ -18,5 +19,6 @@
       "wheel"
     ];
     shell = pkgs.zsh;
+    hashedPasswordFile = config.sops.secrets.hashed_user_password.path;
   };
 }
