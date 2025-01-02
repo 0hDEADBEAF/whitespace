@@ -9,6 +9,7 @@
     ./modules/git
     ./modules/kitty
     ./modules/zsh
+    ./modules/eza
   ] ++ configModules;
 
   home = {
@@ -32,7 +33,6 @@
       iftop
       hyprpaper
       yazi.packages.${pkgs.system}.default
-      eza
       cmus
       cava
       zoxide
