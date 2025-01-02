@@ -1,6 +1,7 @@
-{ inputs, yazi, hyprpaper, home-manager, config, sops-nix, configModules, ... }:
+{ inputs, pkgs, yazi, hyprpaper, home-manager, config, sops-nix, configModules, ... }:
 {
   imports = configModules;
+  programs.zsh.enable = true;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -16,5 +17,6 @@
       "networkmanager"
       "wheel"
     ];
+    shell = pkgs.zsh;
   };
 }

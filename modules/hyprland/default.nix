@@ -126,17 +126,17 @@ in
       "$mod, w, exec, rofi -show window -show-icons"
       
       # Screenshots
-      ", PRINT, exec, grim ~/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S.png') && notify-send -e \"   Screenshot taken   \""
-      "$mod, PRINT, exec, grim -g \"$(slurp)\" ~/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S.png') && notify-send -e \"   Screenshot taken   \""
+      ", PRINT, exec, grim ${config.homeDirectory}/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S.png') && notify-send -e \"   Screenshot taken   \""
+      "$mod, PRINT, exec, grim -g \"$(slurp)\" ${config.homeDirectory}/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S.png') && notify-send -e \"   Screenshot taken   \""
       "SHIFT, PRINT, exec, grim - | wl-copy && notify-send -e \"   Screenshot copied to clipboard   \""
       "$mod SHIFT, PRINT, exec, grim -g \"$(slurp)\" - | wl-copy && notify-send -e \"   Screenshot copied to clipboard   \""
 
       # Shortcuts
       "$mod SHIFT, q, killactive,"
-      "$mod SHIFT, x, exec, ~/.config/scripts/power.sh"
+      "$mod SHIFT, x, exec, ${config.homeDirectory}/.config/scripts/power.sh"
       "$mod, Space, togglefloating,"
       "$mod, m, fullscreen,"
-      "$mod, l, exec, swaylock -i ~/images/lock.jpg"
+      "$mod, l, exec, swaylock -i ${config.homeDirectory}/Images/lock.jpg"
       
       # Move focus
       "$mod, left, movefocus, l"
