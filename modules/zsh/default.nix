@@ -63,7 +63,9 @@
         theme = "gnzh";
       };
       shellAliases = {
-        ll = "ls -la";
+        ls = "eza";
+        ll = "eza -l -a -b -m --git";
+        lr = "eza -T -l --total-size";
       };
       syntaxHighlighting = {
         enable = true;
