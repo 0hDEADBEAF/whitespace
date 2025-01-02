@@ -8,66 +8,74 @@
     ./modules/sops
     ./modules/git
     ./modules/kitty
+    ./modules/zsh
   ] ++ configModules;
 
-  home.username = config.username;
-  home.homeDirectory = config.homeDirectory;
+  home = {
+    username = config.username;
+    homeDirectory = config.homeDirectory;
+    packages = with pkgs; [
+      git
+      zip
+      unzip
+      xz
+      fzf
+      jq
+      ripgrep
+      fd
+      btop
+      aria2
+      which
+      wget
+      curl
+      iotop
+      iftop
+      hyprpaper
+      yazi.packages.${pkgs.system}.default
+      eza
+      cmus
+      cava
+      zoxide
+      ffmpeg 
+      p7zip
+      poppler
+      imagemagick
+      wl-clipboard
+      file
+      bat
+      sops
+      age 
+      gnupg
 
-  home.packages = with pkgs; [
-    git
-    zip
-    unzip
-    xz
-    fzf
-    jq
-    ripgrep
-    fd
-    btop
-    aria2
-    which
-    wget
-    curl
-    iotop
-    iftop
-    hyprpaper
-    yazi.packages.${pkgs.system}.default
-    eza
-    cmus
-    cava
-    zoxide
-    ffmpeg 
-    p7zip
-    poppler
-    imagemagick
-    wl-clipboard
-    file
-    bat
-    sops
-    age 
-    gnupg
+      # Hyprland prerequisites
+      networkmanagerapplet
+      waybar
+      polkit
+      zathura
+      blueman    
+      hyprpaper.packages.${pkgs.system}.default
+      grim
+      slurp
+      libnotify
+      swaylock
+      wireplumber
+      brightnessctl
+      playerctl
 
-    # Hyprland prerequisites
-    networkmanagerapplet
-    waybar
-    polkit
-    zathura
-    blueman    
-    hyprpaper.packages.${pkgs.system}.default
-    grim
-    slurp
-    libnotify
-    swaylock
-    wireplumber
-    brightnessctl
-    playerctl
+      # Personal apps
+      firefox-devedition
+      mpv
+    ];
 
-    # Personal apps
-    firefox-devedition
-    mpv
-
-    # Fonts
-    roboto
-  ];  
+    file = {
+      "${config.homeDirectory}/Images/lock.jpg".source = lib.mkForce ./images/lock.jpg;
+      "${config.homeDirectory}/Images/wallpaper.png".source = lib.mkForce ./images/wallpaper.png;
+      "${config.homeDirectory}/.config/scripts/memory_usage.sh".source = lib.mkForce ./scripts/memory_usage.sh;
+      "${config.homeDirectory}/.config/scripts/power.sh".source = lib.mkForce ./scripts/power.sh;
+      "${config.homeDirectory}/.config/rofi/powermenu.rasi".source = lib.mkForce ./modules/rofi/powermenu.rasi;
+    };
+    stateVersion = "25.05";
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -82,17 +90,10 @@
     settings = {
       ipc = true;
       splash = false;
-      preload = [ "~/images/wallpaper.png" ];
-      wallpaper = [ ",~/images/wallpaper.png" ];
+      preload = [ "~/Images/wallpaper.png" ];
+      wallpaper = [ ",~/Images/wallpaper.png" ];
     };
   };
 
-  home.file."${config.homeDirectory}/images/lock.jpg".source = lib.mkForce ./images/lock.jpg;
-  home.file."${config.homeDirectory}/images/wallpaper.png".source = lib.mkForce ./images/wallpaper.png;
-  home.file."${config.homeDirectory}/.config/scripts/memory_usage.sh".source = lib.mkForce ./scripts/memory_usage.sh;
-  home.file."${config.homeDirectory}/.config/scripts/power.sh".source = lib.mkForce ./scripts/power.sh;
-  home.file."${config.homeDirectory}/.config/rofi/powermenu.rasi".source = lib.mkForce ./modules/rofi/powermenu.rasi;
-
-  home.stateVersion = "25.05";
   programs.home-manager.enable = true;
 }

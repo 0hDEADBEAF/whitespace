@@ -1,5 +1,5 @@
 #! /bin/sh
-suspend="systemctl suspend && swaylock -i ~/images/lock.jpg"
+suspend="systemctl suspend && swaylock -i ~/Images/lock.jpg"
 
 # special method for loggin out :(
 logout="killall Hyprland"

@@ -109,7 +109,12 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [ ];
+  environment = {
+    systemPackages = with pkgs; [ ];
+    pathsToLink = [
+      "/share/zsh"
+    ];
+  };
 
   security.rtkit.enable = true;
 
