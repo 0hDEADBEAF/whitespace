@@ -15,6 +15,7 @@
     networks = [
       "tmp_royan"
       "my_phone_share"
+      "home"
     ];
     hardware = {
       keyboardLayout = "fr";
