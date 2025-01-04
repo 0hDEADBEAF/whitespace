@@ -11,6 +11,7 @@
     ./modules/zsh
     ./modules/eza
     ./modules/btop
+    ./modules/fd
   ] ++ configModules;
 
   home = {
@@ -24,7 +25,6 @@
       jq
       ripgrep
       fzf
-      fd
       aria2
       which
       wget
