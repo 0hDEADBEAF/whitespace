@@ -10,6 +10,7 @@
     ./modules/kitty
     ./modules/zsh
     ./modules/eza
+    ./modules/btop
   ] ++ configModules;
 
   home = {
@@ -20,11 +21,10 @@
       zip
       unzip
       xz
-      fzf
       jq
       ripgrep
+      fzf
       fd
-      btop
       aria2
       which
       wget
