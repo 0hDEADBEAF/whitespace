@@ -1,10 +1,9 @@
 { config, pkgs, inputs, ... }:
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./modules/sops
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./modules/sops
+  ];
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -16,7 +15,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
- networking = {
+  networking = {
     networkmanager = {
       enable = true;
       ensureProfiles = {
@@ -103,13 +102,23 @@
   nixpkgs.config.allowUnfree = true;
 
   environment = {
-    systemPackages = with pkgs; [ ];
+    systemPackages = with pkgs; [
+      btop
+    ];
     pathsToLink = [
       "/share/zsh"
     ];
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    wrappers.btop = {
+      owner = "root";
+      group = "root";
+      capabilities = "cap_perfmon+ep";
+      source = "${pkgs.btop}/bin/btop";
+    };
+  };
 
   hardware = {
     bluetooth.enable = true;

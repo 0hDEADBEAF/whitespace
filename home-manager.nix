@@ -10,6 +10,7 @@
       sops-nix.homeManagerModules.sops
     ];
     extraSpecialArgs = { inherit inputs yazi sops-nix hyprpaper configModules; };
+    backupFileExtension = "bak";
   };
   sops.secrets.hashed_user_password.neededForUsers = true;
   users.users.${config.username} = {
