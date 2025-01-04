@@ -92,12 +92,15 @@
 
   console.keyMap = config.hardware.keyboardLayout;
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    noto-fonts
-    noto-fonts-emoji
-    noto-fonts-cjk-sans
-  ];
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
+    ];
+  };
 
   nixpkgs.config.allowUnfree = true;
 
