@@ -109,7 +109,7 @@
         tooltip = false;
       };
       "custom/memory" = {
-        exec = "~/.config/scripts/memory_usage.sh";
+        exec = "${config.homeDirectory}/.config/scripts/memory_usage.sh";
         interval = 2;
         return-type = "json";
         format = "<span color='#202020' bgcolor='#458588' >  </span> {}";

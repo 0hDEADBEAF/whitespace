@@ -92,6 +92,12 @@ in
       description = "List of the different networks configured in the secret 'wireless.conf'";
       default = [];
     };
+
+    cursorSize = mkOption {
+      type = types.int;
+      description = "Size of the Bibata cursor";
+      default = 24;
+    };
     
     hardware = {
       monitors = mkOption {

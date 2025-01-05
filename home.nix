@@ -13,6 +13,7 @@
     ./modules/btop
     ./modules/fd
     ./modules/zoxide
+    ./modules/bibata
   ] ++ configModules;
 
   home = {

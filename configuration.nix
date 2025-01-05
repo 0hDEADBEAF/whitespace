@@ -46,6 +46,7 @@
   };
   
   programs = {
+    dconf.enable = true;
     nm-applet.enable = true;
     gnupg.agent = {
       enable = true;

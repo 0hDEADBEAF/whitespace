@@ -4,6 +4,7 @@
     hostname = "incarnam";
     videoDrivers = [ "modsetting" ];
     git.signingKey = "C2671CD8BA3B9B3C";
+    cursorSize = 32;
     hardware = {
       temperatureInputPath = "/sys/class/hwmon/hwmon4/temp1_input";
       monitors = [
