@@ -12,6 +12,7 @@
     ./modules/eza
     ./modules/btop
     ./modules/fd
+    ./modules/zoxide
   ] ++ configModules;
 
   home = {
@@ -35,7 +36,6 @@
       yazi.packages.${pkgs.system}.default
       cmus
       cava
-      zoxide
       ffmpeg 
       p7zip
       poppler

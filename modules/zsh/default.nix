@@ -67,6 +67,7 @@
         ll = "eza -l -a -b -m --git";
         lr = "eza -T -l --total-size";
         find = "fd";
+        cd = "z";
       };
       syntaxHighlighting = {
         enable = true;
