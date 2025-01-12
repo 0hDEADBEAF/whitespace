@@ -12,9 +12,13 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, yazi, hyprpaper, sops-nix, ...}@inputs: {
+  outputs = { self, nixpkgs, home-manager, hyprland, yazi, hyprpaper, sops-nix, nvf, ...}@inputs: {
     nixosConfigurations = 
       let
         inherit (nixpkgs.lib) genAttrs nixosSystem;
@@ -27,7 +31,7 @@
         nixosSystem {
           system = "x86_64-linux";
           specialArgs = { 
-            inherit self inputs sops-nix hyprpaper yazi;
+            inherit self inputs sops-nix hyprpaper yazi nvf;
             configModules = [
               ./options.nix
               ./configurations

@@ -1,4 +1,4 @@
-{ inputs, pkgs, yazi, hyprpaper, home-manager, config, sops-nix, configModules, ... }:
+{ inputs, pkgs, yazi, hyprpaper, home-manager, config, sops-nix, nvf, configModules, ... }:
 {
   imports = configModules;
   programs.zsh.enable = true;
@@ -8,6 +8,7 @@
     users.${config.username} = import ./home.nix;
     sharedModules = [
       sops-nix.homeManagerModules.sops
+      nvf.homeManagerModules.default
     ];
     extraSpecialArgs = { inherit inputs yazi sops-nix hyprpaper configModules; };
     backupFileExtension = "bak";

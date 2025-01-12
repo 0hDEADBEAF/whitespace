@@ -14,6 +14,7 @@
     ./modules/fd
     ./modules/zoxide
     ./modules/bibata
+    ./modules/neovim
   ] ++ configModules;
 
   home = {
